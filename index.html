@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dream Property | Plot Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="company">
+            <h1>Dream Property</h1>
+            <p>Property Management System</p>
+        </div>
+
+        <div class="user-info">
+            <span id="loggedInUser">Loading User...</span>
+            <button id="logoutBtn">Logout</button>
+            <button>Admin Login</button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="project-header">
+            <div>
+                <h2>Dream Valley Estate</h2>
+                <p>Residential Plot Development</p>
+                <span>Location: Johannesburg, South Africa</span>
+            </div>
+
+            <select id="projectSelect">
+                <option value="dream-valley">Dream Valley Estate</option>
+            </select>
+        </section>
+        <!-- Admin Dashboard -->
+        <section id="adminDashboard" class="admin-dashboard">
+
+            <h2>Admin Dashboard</h2>
+            <p>Property Business Overview</p>
+
+            <div class="admin-stats">
+
+                <div class="admin-stat-card">
+                    <h3>Total Agents</h3>
+                    <h2 id="totalAgents">0</h2>
+                </div>
+
+                <div class="admin-stat-card">
+                    <h3>Pending Approvals</h3>
+                    <h2 id="pendingApprovals">0</h2>
+                </div>
+
+                <div class="admin-stat-card">
+                    <h3>Approved Requests</h3>
+                    <h2 id="approvedRequests">0</h2>
+                </div>
+
+                <div class="admin-stat-card">
+                    <h3>Rejected Requests</h3>
+                    <h2 id="rejectedRequests">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- Agent Management -->
+        <section id="agentManagement" class="agent-management">
+
+            <h2>Agent Management</h2>
+            <p>Manage your property sales agents.</p>
+            <button id="addAgentBtn" class="add-agent-btn">
+                + Add New Agent
+                <!-- Add Agent Form -->
+
+                <div id="addAgentForm" class="add-agent-form" style="display: none;">
+
+                    <h3>Register New Agent</h3>
+
+                    <label>Agent Name</label>
+                    <input type="text" id="agentName" placeholder="Enter agent name">
+
+                    <label>Email Address</label>
+                    <input type="email" id="agentEmail" placeholder="Enter email address">
+
+                    <label>Password</label>
+                    <input type="password" id="agentPassword" placeholder="Create password">
+
+                    <button id="saveAgentBtn">Save Agent</button>
+                    <button id="cancelAgentBtn">Cancel</button>
+
+                </div>
+            </button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Agent Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="agentList">
+                    <tr>
+                        <td>Demo Agent</td>
+                        <td>agent@dreamproperty.com</td>
+                        <td>Agent</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+        <section class="summary">
+
+            <div class="summary-card">
+                <h3>Total Plots</h3>
+                <p id="totalPlots">50</p>
+            </div>
+
+            <div class="summary-card available">
+                <h3>Available</h3>
+                <p id="availablePlots">0</p>
+            </div>
+
+            <div class="summary-card booked">
+                <h3>Booked</h3>
+                <p id="bookedPlots">0</p>
+            </div>
+
+            <div class="summary-card sold">
+                <h3>Sold</h3>
+                <p id="soldPlots">0</p>
+            </div>
+
+        </section>
+
+        <section class="site-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Property Site Layout</h2>
+                    <p>Select any plot to view its details.</p>
+                </div>
+            </div>
+
+            <div class="legend">
+                <span><i class="green"></i> Available</span>
+                <span><i class="yellow"></i> Booked</span>
+                <span><i class="red"></i> Sold</span>
+            </div>
+            
+            <div class="plot-search">
+
+                <div class="plot-filters">
+                    <button onclick="filterPlots('all')">All Plots</button>
+                    <button onclick="filterPlots('available')">Available</button>
+                    <button onclick="filterPlots('booked')">Booked</button>
+                    <button onclick="filterPlots('sold')">Sold</button>
+                </div>
+
+                <input
+                    type="text"
+                    id="plotSearch"
+                    placeholder="Search Plot Number (e.g. A-05)"
+                >
+            </div>
+
+            <div id="siteLayout" class="site-layout">
+                <!-- 50 plots will be generated using JavaScript -->
+            </div>
+
+        </section>
+
+        
+        <section id="plotDetails" class="plot-details">
+
+            <h2>Plot Details</h2>
+
+            <p>Select a plot from the map to view its information.</p>
+
+            <div id="statusUpdateSection" style="display: none;">
+
+                <label for="plotStatus">Update Plot Status:</label>
+
+                <select id="plotStatus">
+                    <option value="available">Available</option>
+                    <option value="booked">Booked</option>
+                    <option value="sold">Sold</option>
+                </select>
+
+                <button id="updateStatusBtn">Update Status</button>
+
+            </div>
+
+        </section>
+         
+        <!-- Admin Approval Section -->
+        <section id="approvalSection" class="approval-section">
+
+            <h2>Pending Plot Approvals</h2>
+
+            <div id="pendingRequests">
+                <p>No pending requests.</p>
+            </div>
+
+        </section>
+        <section class="activity-section">
+            <h2>Recent Plot Activity</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Plot Number</th>
+                        <th>Activity</th>
+                    </tr>
+                </thead>
+
+                <tbody id="activityLog">
+                    <tr>
+                        <td colspan="3">No activity recorded yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+    </main>
+
+    <footer>
+        <p>© 2026 Dream Property. Demo Application.</p>
+    </footer>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
